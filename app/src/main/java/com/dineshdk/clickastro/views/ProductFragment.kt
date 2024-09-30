@@ -31,8 +31,8 @@ class ProductFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         shopViewModel = ViewModelProvider(requireActivity()).get(ShopViewModel::class.java)
-        val p = shopViewModel?.getProduct()!!
             binding.apply {
+               val p = shopViewModel?.getProduct()!!
                 Glide.with(productImageView)
                     .load(p.imagePath.wide)
                     .fitCenter()

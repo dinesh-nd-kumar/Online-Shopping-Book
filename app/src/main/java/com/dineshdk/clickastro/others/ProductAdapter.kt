@@ -7,7 +7,7 @@ import com.bumptech.glide.Glide
 import com.dineshdk.clickastro.models.ProductEntity
 import com.dineshdk.clickastro.databinding.RowItemBinding
 
-class ProductAdapter(val clickListener: ItemClickListener, private var productList: List<ProductEntity>)
+class ProductAdapter(val clickListener: ItemClickListener, var productList: List<ProductEntity>?)
     : RecyclerView.Adapter<ProductAdapter.UniversityViewHolder>() {
 //        private var key : List<String> = productList?.products?.keys!!.map { it }
 
@@ -22,14 +22,16 @@ class ProductAdapter(val clickListener: ItemClickListener, private var productLi
 
         if (productList == null)
             return 0
-        return productList.size
+        return productList!!.size
 
     }
 
 
     override fun onBindViewHolder(holder: UniversityViewHolder, position: Int) {
-        val name = productList[position]
-        holder.bindData(name)
+        val name = productList?.get(position)
+        if (name != null) {
+            holder.bindData(name)
+        }
 
     }
 

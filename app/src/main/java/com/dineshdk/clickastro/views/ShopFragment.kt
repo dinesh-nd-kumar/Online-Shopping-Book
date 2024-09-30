@@ -26,26 +26,30 @@ class ShopFragment : Fragment(), ProductAdapter.ItemClickListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentShopBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initRecycler()
 
         shopViewModel = ViewModelProvider(requireActivity()).get(ShopViewModel::class.java)
         shopViewModel!!.loadData(requireContext())
         shopViewModel!!.getProductLiveData().observe(viewLifecycleOwner){
             setRecycler(it)
-            productAdapter.notifyDataSetChanged()
 
         }
 
     }
-    private fun setRecycler(productList: List<ProductEntity>?){
+    private fun setRecycler(list: List<ProductEntity>?){
+        productAdapter.productList = list
+        productAdapter.notifyDataSetChanged()
+    }
+    private fun initRecycler(){
         binding.rvProducts.apply {
-            productAdapter = ProductAdapter(this@ShopFragment,productList!!)
+            productAdapter = ProductAdapter(this@ShopFragment,null)
             adapter = productAdapter
             addItemDecoration(
                 DividerItemDecoration(

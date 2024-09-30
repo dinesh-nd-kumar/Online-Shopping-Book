@@ -40,8 +40,6 @@ class ShopRepo {
 
                     }
 
-
-
                     products?.forEach { (key, product) ->
                         Log.d("Product", "$key: ${product.name}, Price: ${product.price}")
                     }
